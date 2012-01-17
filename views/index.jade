@@ -1,0 +1,17 @@
+h1 Weight Tracking
+form(method="post", action="/")
+  input(type="hidden", name="day[date]", value="#{date}")
+  .label Record Weight
+  input(name="day[weight]")
+  input(type="submit")
+table.history
+  tr
+    th Date
+    th Target
+    th Actual
+  - for( i in data )
+    - if (data.hasOwnProperty(i))
+      tr.item
+        td.date= new Date(data[i].date).toDateString()
+        td.target= data[i].target.toFixed(2)
+        td.weight= data[i].weight

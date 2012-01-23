@@ -20,3 +20,11 @@ td, th {
   padding: 3px 8px;
   text-align: center;
 }
+.chart div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
+}

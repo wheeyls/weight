@@ -19,7 +19,7 @@ exports.save = function(req, res){
     day_list.add(req.body.day);
     day_list.save(function(err) {
       if(err) { throw err; }
+      res.redirect('home');
     });
-    res.redirect('home');
   });
 };

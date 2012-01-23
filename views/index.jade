@@ -15,3 +15,4 @@ table.history
         td.date= new Date(data[i].date).toDateString()
         td.target= data[i].target.toFixed(2)
         td.weight= data[i].weight
+input#data-set(type="hidden", value="#{JSON.stringify(data)}")

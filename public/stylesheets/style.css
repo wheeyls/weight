@@ -8,6 +8,7 @@ a {
 }
 
 table {
+  float:left;
   font-size: 1em;
   color: #333;
   border-collapse: collapse;
@@ -20,11 +21,36 @@ td, th {
   padding: 3px 8px;
   text-align: center;
 }
+.chart {
+  float:left;
+}
 .chart div {
+  display: inline-block;
+  vertical-align: bottom;
+  text-align: center;
   font: 10px sans-serif;
   background-color: steelblue;
   text-align: right;
-  padding: 3px;
+  padding: 0px;
   margin: 1px;
   color: white;
+  width: 20px;
+}
+.chart div div {
+  position: relative;
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+}
+.chart div .max {
+  position: static;
+  line-height: 10px;
+  color: black;
+  background-color: white;
+}
+.chart div .min {
+  position: static;
+  line-height: 10px;
+  color: black;
+  background-color: white;
 }

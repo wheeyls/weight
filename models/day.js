@@ -1,7 +1,7 @@
 var fs = require("fs");
 
 var Day = exports.Day = function day(attributes) {
-  attributes.date = new Date();
+  attributes.date = attributes.date ? new Date(attributes.date) : new Date();
   attributes.id = attributes.id || new Date().getTime();
   attributes.target = this.goal_weight(attributes.date);
   this.attributes = attributes;

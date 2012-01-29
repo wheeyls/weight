@@ -21,7 +21,7 @@
 
   data = transform_data(data);
 
-  chart = d3.select("body").append("svg")
+  chart = d3.select(".chart-container").append("svg")
       .attr("width", chart_width + 30)
       .attr("height", (1+data.length) * bar)
       .attr("class", "chart")

@@ -17,12 +17,46 @@ table {
 tr:nth-child(even) {
   background-color: #eee;
 }
+tr:nth-child(odd) {
+  background-color: #fff;
+}
 td, th {
-  padding: 3px 8px;
+  height: 25px;
+  line-height: 25px;
+  padding: 0px 8px;
   text-align: center;
+  display:none;
+  left: 50px;
+  z-index: -100;
+}
+.expand td, .expand th {
+  width: auto;
+  display:table-cell;
+}
+table td:nth-child(1), table th:nth-child(1) {
+  width: auto;
+  display:table-cell;
 }
 .chart {
+  font-size:9pt;
   float:left;
+}
+.chart rect {
+  stroke: white;
+}
+.chart rect:hover {
+}
+.chart .target {
+  fill: steelblue;
+  fill-opacity: .5;
+}
+.chart .actual {
+}
+.chart .on-target {
+  fill: gray;
+}
+.chart .off-target {
+  fill: gray;
 }
 .chart div {
   display: inline-block;

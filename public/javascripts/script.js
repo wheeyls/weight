@@ -1,5 +1,5 @@
 (function() {
-  var chart = d3.select("body").append("div").attr("class", "chart")
+  var chart 
       , dataEl = document.getElementById("data-set")
       , data = JSON.parse(dataEl.value)
       , scale, diff_scale
@@ -7,6 +7,8 @@
       , legend
       , max_weight = 182
       , target_weight = 170
+      , chart_width = 400
+      , bar = 25
       ;
 
   function transform_data(data) {
@@ -18,43 +20,63 @@
   }
 
   data = transform_data(data);
+
+  chart = d3.select("body").append("svg")
+      .attr("width", chart_width + 30)
+      .attr("height", (1+data.length) * bar)
+      .attr("class", "chart")
+      .append("g")
+      .attr("transform", "translate(15, "+bar+")")
+
   scale = d3.scale.linear()
     .domain([target_weight, max_weight])
-    .range(["0px","250px"]);
+    .range(["0",chart_width]);
   diff_scale = d3.scale.linear()
     .domain([0, max_weight-target_weight])
-    .range(["0px","250px"]);
+    .range(["0",chart_width]);
 
-  /*legend = chart.append("div")
-    .style("background-color", "#fff")
-    .style("color", "black")
-    .style("height", "250px")
-  legend.append("div").attr("class", "max").text(max_weight)
-    .style("height", 250-10+"px");
-  legend.append("div").attr("class", "min").text(target_weight)
-  */
 
-  chart.selectAll("div").data(data)
-    .enter().append("div")
-    .style("height", function(d) {
-      var x = scale(d.target);
-      return x;
-    })
-    .append("div")
-    .style("background-color", function(d) {
-      var diff = d.target - d.weight;
-      return diff >= 0 ? "green" : "red";
-    })
-    .style("top", function(d) {
-      var diff = d.target - d.weight;
-      return diff >= 0 ? "0px" : diff_scale(diff);
-    })
-    .style("height", function(d) {
-      var diff = d.target - d.weight;
-      return diff_scale(Math.abs(diff));
-    })
-    .text(function(d) {
-      var date = new Date(d.date);
-      return DAYS[date.getDay()]// + "\n" + d.weight;
-    })
+  chart.selectAll(".actual")
+    .data(data, function(d) {return d.weight;})
+    .enter().append("rect")
+      .attr("y", function(d, i) { return i*bar; })
+      .attr("height", function(d, i) { return bar; })
+      .attr("width", function(d, i) { return scale(d.weight); })
+      .attr("class", "actual")
+      .attr("class", function(d) {
+        return d.weight <= d.target ? "on-target" : "off-target";
+      })
+      
+  chart.selectAll(".target")
+    .data(data, function(d) {return d.target;})
+    .enter().append("rect")
+      .attr("y", function(d, i) { return i*bar; })
+      .attr("height", function(d, i) { return bar; })
+      .attr("width", function(d, i) { return scale(d.target); })
+      .attr("class", "target")
+
+  chart.selectAll("line")
+    .data(scale.ticks(15))
+    .enter().append("line")
+      .attr("x1", scale)
+      .attr("x2", scale)
+      .attr("y1", 0)
+      .attr("y2", function(d,i) {return (1+data.length)*bar;})
+      .style("stroke", "#ccc")
+
+  chart.selectAll(".rule")
+    .data(scale.ticks(15))
+    .enter().append("text")
+      .attr("class", "rule")
+      .attr("x", scale)
+      .attr("y", 0)
+      .attr("dy", -3)
+      .attr("text-anchor", "middle")
+      .text(String)
+
+  $("table").hover(function() {
+    $(this).addClass("expand");
+  }, function() {
+    $(this).removeClass("expand");
+  });
 }());

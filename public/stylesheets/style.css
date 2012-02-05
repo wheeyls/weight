@@ -13,6 +13,7 @@ table {
   color: #333;
   border-collapse: collapse;
   border-spacing: 0;
+  margin-bottom: 50px;
 }
 tr:nth-child(even) {
   background-color: #eee;
